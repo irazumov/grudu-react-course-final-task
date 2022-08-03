@@ -20,7 +20,7 @@ export default function TweetsItem(props: ITweetsItemProps) {
         </div>
         <div className="tweets-item__tweet">
           <div className="tweets-item__tweet-name">{user.name}</div>
-          <div className="tweets-item__tweet-content">{tweet}</div>
+          <div className="tweets-item__tweet-content" dangerouslySetInnerHTML={{ __html: tweet }}></div>
         </div>
       </div>
     </div>

@@ -4,14 +4,38 @@ import validators from './validators';
 import './TweetForm.css';
 import TArea from '../ui/TArea';
 import TButton from '../ui/TButton';
+import tweetsApi from '../../api/tweets';
 
-export default function TweetForm() {
+interface ITweetFormProps {
+  onAdded?: () => void;
+}
+
+export default function TweetForm({ onAdded }: ITweetFormProps) {
   const [tweet, setTweet, tweetError] = useValidationable<string>("", validators.tweet);
   const [touched, setTouched] = useState<boolean>(false);
   
-  const onSubmit = (event: React.FormEvent<HTMLFormElement>) => {
-    event.preventDefault();
+  const validate = () => {
+    setTouched(true);
+    return !tweetError;
   }
+
+  const onSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
+    event.preventDefault();
+
+    if (!validate()) {
+      return;
+    }
+    
+    try {
+      await tweetsApi.insertOne({ text: tweet, author_id: 'johnsmith' });
+      onAdded && onAdded();
+      setTweet("");
+      setTouched(false);
+    } catch (error) {
+      console.error(error); 
+    }
+  }
+
   return (
     <form className="tweet-form" onSubmit={onSubmit}>
       <TArea
