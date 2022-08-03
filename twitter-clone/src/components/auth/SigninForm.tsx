@@ -47,7 +47,7 @@ export default function SigninForm() {
       subrow={{
         text: 'Don’t have an account?',
         linkTitle: 'Sign up',
-        linkHref: '#',
+        linkHref: '/signup',
       }}
     >
       <TInput
@@ -59,6 +59,8 @@ export default function SigninForm() {
           autoComplete="email"
           error={emailError}
           touched={touched.email}
+          onBlur={() => setTouched({ ...touched, email: true })}
+          required
         />
         <TInput
           className="bordered"
@@ -68,6 +70,8 @@ export default function SigninForm() {
           setValue={setPassword}
           error={passwordError}
           touched={touched.password}
+          onBlur={() => setTouched({ ...touched, password: true })}
+          required
         />
       </FormWrapper>
   );
