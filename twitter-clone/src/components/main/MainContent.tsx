@@ -7,22 +7,7 @@ import tweetsApi from '../../api/tweets';
 
 export default function MainContent() {
 
-  const [tweets, setTweets] = useState<ITweetsItemProps[]>([
-    {
-      tweet: 'Hello, world!',
-      user: {
-        name: 'John Doe',
-        avatar: 'JD',
-      },
-    },
-    {
-      tweet: 'Hello, world!',
-      user: {
-        name: 'John Doe',
-        avatar: 'JD',
-      },
-    },
-  ]);
+  const [tweets, setTweets] = useState<ITweetsItemProps[]>([]);
 
   const fetchTweets = () => {
     tweetsApi.find().then(tweets => {
