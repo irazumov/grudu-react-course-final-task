@@ -3,6 +3,8 @@
   --border-color: #42434B;
   --border-width: 2px;
   --button-color: #CBCCD6;
+  --header-background-color: #CBCCD6;
+  --header-text-color: #42434B;
 }
 
 .bordered {
@@ -10,13 +12,13 @@
   border-radius: var(--border-radius);
 }
 
-.App {
+.container {
+  width: 520px;
+}
+
+.container-centered {
   display: flex;
   justify-content: center;
   align-items: center;
   height: 100vh;
-}
-
-.container {
-  width: 520px;
 }
