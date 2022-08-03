@@ -1,0 +1,47 @@
+.tweets-item {
+  border: var(--border-width) solid var(--border-color);
+  border-radius: var(--border-radius);
+  width: 100%;
+  margin: 16px 0;
+
+  display: flex;
+}
+
+.tweets-item__row {
+  display: flex;
+  gap: 21px;
+  margin: 10px 14px;
+}
+
+.tweets-item__user {
+  display: flex;
+  flex-direction: column;
+}
+
+.tweets-item__user-avatar {
+  width: 58px;
+  height: 58px;
+  border-radius: 50%;
+  border: 1px solid #727374;
+
+  font-weight: 400;
+  font-size: 28px;
+  line-height: 37px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.tweets-item__tweet-name {
+  font-weight: 600;
+  font-size: 22px;
+  line-height: 30px;
+  color: #42434B;
+}
+
+.tweets-item__tweet-content {
+  font-weight: 400;
+  font-size: 22px;
+  line-height: 30px;
+  color: #42434B;
+}
