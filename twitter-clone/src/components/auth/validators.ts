@@ -21,12 +21,14 @@ export const username: Array<ValidationFunc<string>> = [
 export const fullname: Array<ValidationFunc<string>> = [
   (value) => value.length > 0 || "Fullname is required",
   (value) => value.length >= 1 || "Fullname must be at least 1 characters",
-  (value) => value.length <= 256 || "Fullname must be at most 256 characters",
+  (value) => value.length <= 512 || "Fullname must be at most 512 characters",
 ];
 
-export default {
+const validators = {
   email,
   password,
   username,
   fullname,
 };
+
+export default validators;
