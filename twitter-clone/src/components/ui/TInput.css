@@ -1,0 +1,30 @@
+.tinput {
+  padding: 6px 18px;
+  font-style: normal;
+  font-weight: 400;
+  font-size: 28px;
+  line-height: 38px;
+}
+
+.tinput input {
+  border: none;
+}
+
+@keyframes fadeIn {
+  0% { opacity: 0; }
+  100% { opacity: 1; }
+}
+
+.tinput-error {
+  opacity: 0;  
+  margin: 4px 0;
+  padding: 0;
+  color: red;
+  min-height: 19px;
+  font-weight: 500;
+}
+
+.tinput-error.show {
+  opacity: 1;
+  animation: fadeIn 2s;
+}
