@@ -1,6 +1,7 @@
 import React from "react";
 import "./FormWrapper.css";
 import TButton from '../ui/TButton';
+import { Link } from "react-router-dom";
 
 interface ISubrow {
   text: string;
@@ -40,7 +41,7 @@ export default function FormWrapper(props: FormWrapperProps) {
         </div>
       </form>
       <p
-        className="subrow">{subrow.text} <a href={subrow.linkHref}>{subrow.linkTitle}</a>
+        className="subrow">{subrow.text} <Link to={subrow.linkHref}>{subrow.linkTitle}</Link>
       </p>
     </>
   );

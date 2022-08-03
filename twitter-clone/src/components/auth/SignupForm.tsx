@@ -54,7 +54,7 @@ export default function SignupForm() {
       subrow={{
         text: "Already have an account?",
         linkTitle: "Log in",
-        linkHref: "#",
+        linkHref: "/signin",
       }}
     >
       <TInput
