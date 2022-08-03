@@ -1,0 +1,50 @@
+.form {
+  display: flex;
+  flex-direction: column;
+  padding: 10px 44px;
+}
+
+.form .main {
+  display: flex;
+  flex-direction: column;
+}
+
+.form .footer {
+  width: 100%;
+  margin-top: 37px;
+  margin-bottom: 28px;
+  display: flex;
+  justify-content: right;
+}
+
+.form label {
+  text-align: center;
+  font-size: 28px;
+  line-height: 38.13px;
+  margin-top: 17px;
+  margin-bottom: 48px;
+}
+
+.form input[type="submit"] {
+  padding: 6px 18px;
+  margin-bottom: 40px;
+  font-weight: 400;
+  font-size: 28px;
+  line-height: 38px;
+  background-color: var(--button-color);
+  cursor: pointer;
+}
+
+.subrow {
+  display: flex;
+  justify-content: center;
+  margin-top: 22px;
+  text-align: center;
+  font-weight: 400;
+  font-size: 22px;
+  line-height: 30px;
+}
+
+.subrow a {
+  margin-left: 4px;
+}
