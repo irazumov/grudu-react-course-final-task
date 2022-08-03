@@ -1,0 +1,9 @@
+.tweet-form {
+  margin-top: 34px;
+}
+
+.tweet-form__footer {
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-end;
+}
