@@ -1,0 +1,32 @@
+.tarea {
+  width: 744px;
+  height: 100%;
+  border-radius: 8px;
+  padding: 10px 16px;
+  resize: vertical;
+
+  font-family: 'Open Sans' sans-serif;
+  font-style: normal;
+  font-weight: 400;
+  font-size: 28px;
+  line-height: 38px;
+}
+
+@keyframes fadeIn {
+  0% { opacity: 0; }
+  100% { opacity: 1; }
+}
+
+.tarea-error {
+  opacity: 0;  
+  margin: 4px 0;
+  padding: 0;
+  color: red;
+  min-height: 19px;
+  font-weight: 500;
+}
+
+.tarea-error.show {
+  opacity: 1;
+  animation: fadeIn 2s;
+}
