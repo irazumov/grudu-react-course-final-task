@@ -4,7 +4,10 @@ interface ApiResponse<T> {
 }
 
 export class ApiClient<T> {
-  constructor(private readonly api: string) {}
+  private readonly api: string;
+  constructor(api: string) {
+    this.api = `http://localhost:3001${api}`;
+  }
 
   public async find(filters?: Partial<T>): Promise<ApiResponse<T[]>> {
     const search = new URLSearchParams();
