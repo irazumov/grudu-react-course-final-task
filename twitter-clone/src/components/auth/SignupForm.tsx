@@ -3,6 +3,8 @@ import { useValidationable } from "../../hooks/validationable";
 import FormWrapper from './FormWrapper';
 import TInput from '../ui/TInput';
 import validators from "./validators";
+import { useAuth } from "../../contexts/auth";
+import { useNavigate } from "react-router-dom";
 
 interface ITouchedSignupFields {
   email: boolean;
@@ -12,6 +14,8 @@ interface ITouchedSignupFields {
 }
 
 export default function SignupForm() {
+  const auth = useAuth();
+  const navigate = useNavigate();
   const [email, setEmail, emailError] = useValidationable<string>("", validators.email);
   const [password, setPassword, passwordError] = useValidationable<string>("", validators.password);
   const [username, setUsername, usernameError] = useValidationable<string>("", validators.username);
@@ -38,11 +42,13 @@ export default function SignupForm() {
     return !emailError && !passwordError && !usernameError && !fullnameError;
   }
 
-  const onSubmit = (event:   React.FormEvent<HTMLFormElement>) => {
+  const onSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
-    if (validate()) {
-      console.log(email, password, username, fullname);
+    if (!validate() || auth.loading) {
+      return;
     }
+    await auth.signup(email, password, username, fullname);
+    navigate('/signin');
   }
 
   return (
@@ -56,6 +62,7 @@ export default function SignupForm() {
         linkTitle: "Log in",
         linkHref: "/signin",
       }}
+      error={auth.error}
     >
       <TInput
         className="bordered"

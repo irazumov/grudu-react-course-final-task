@@ -1,7 +1,7 @@
 import { ApiClient } from ".";
 
 export interface ITweet {
-  id: string;
+  id?: string;
   author_id: string;
   text: string;
 }
