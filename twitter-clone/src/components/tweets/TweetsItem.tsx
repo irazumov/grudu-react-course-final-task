@@ -4,7 +4,7 @@ export interface ITweetsItemProps {
   tweet: string;
   user: {
     name: string;
-    avatar: string;
+    abbr: string;
   }
 }
 
@@ -15,7 +15,7 @@ export default function TweetsItem(props: ITweetsItemProps) {
       <div className="tweets-item__row">
         <div className="tweets-item__user">
           <div className="tweets-item__user-avatar">
-            {user.avatar}
+            {user.abbr}
           </div>
         </div>
         <div className="tweets-item__tweet">

@@ -1,10 +1,11 @@
 import { useAuth } from '../../contexts/auth';
+import { getAbbr } from '../../utils/user';
 import AppLogo from '../icons/AppLogo';
 import './MainHeader.css';
 
 export default function MainHeader() {
   const auth = useAuth();
-  const abbr = auth.user?.name?.split(' ').map(i => i[0].toUpperCase()).join('') || 'N/A';
+  const abbr = getAbbr(auth.user!.name);
   return (
     <header className="main-header">
       <div className="main-header__row">
@@ -13,7 +14,7 @@ export default function MainHeader() {
           <span>Another Twitter Clone</span>
         </div>
         <div className="header-user">
-          <span>{auth.user?.name}</span>
+          <span>{auth.user!.name}</span>
           <div className="header-user__icon">
             {abbr}
           </div>

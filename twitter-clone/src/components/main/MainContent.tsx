@@ -2,35 +2,20 @@ import { useEffect, useState } from 'react';
 import './MainContent.css';
 import TweetForm from '../tweets/TweetForm';
 import TweetsList from '../tweets/TweetsList';
-import TweetsItem, { ITweetsItemProps } from '../tweets/TweetsItem';
-import tweetsApi from '../../api/tweets';
+import TweetsItem from '../tweets/TweetsItem';
+import { useTweets } from '../tweets/TweetsProvider';
 
 export default function MainContent() {
-
-  const [tweets, setTweets] = useState<ITweetsItemProps[]>([]);
-
-  const fetchTweets = () => {
-    tweetsApi.find().then(tweets => {
-      setTweets(tweets.data.map(({ id, author_id, text }) => ({
-        tweet: text,
-        user: {
-          name: author_id,
-          avatar: 'JD',
-        },
-      })));
-    });
-  };
-
-
+  const tweetsContext = useTweets();
   useEffect(() => {
-    fetchTweets();
+    tweetsContext.getTweets();
   }, []);
-
+  
   return (
     <div className="main-content">
-      <TweetForm onAdded={fetchTweets} />
+      <TweetForm onAdded={tweetsContext.getTweets} />
       <TweetsList>
-        {tweets.map((tweet, index) => <TweetsItem key={index} tweet={tweet.tweet} user={tweet.user} />)}
+        {tweetsContext.tweets.map((tweet, index) => <TweetsItem key={index} tweet={tweet.tweet} user={tweet.user} />)}
       </TweetsList>
     </div>
   );

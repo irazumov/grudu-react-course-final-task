@@ -1,6 +1,5 @@
 import { Outlet } from 'react-router-dom';
 import './App.css';
-import SignupForm from './components/auth/SignupForm';
 
 function App() {
   return (
