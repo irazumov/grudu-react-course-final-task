@@ -61,13 +61,8 @@ export default function TweetsProvider({ children }: { children: React.ReactNode
   const createTweet = async (tweet: ITweet) => {
     setLoading(true);
     setError(null);
-    try {
-      const author_id = auth.user!.id;
-
-      const newTweet = await tweetsApi.insertOne({
-        ...tweet,
-        author_id,
-      });
+    try {     
+      const newTweet = await tweetsApi.insertOne(tweet);
       if (newTweet.status === 201) {
         setTweets([...tweets, {
           tweet: newTweet.data.text,

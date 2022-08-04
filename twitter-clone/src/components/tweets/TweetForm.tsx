@@ -5,12 +5,14 @@ import './TweetForm.css';
 import TArea from '../ui/TArea';
 import TButton from '../ui/TButton';
 import tweetsApi from '../../api/tweets';
+import { useAuth } from '../../contexts/auth';
 
 interface ITweetFormProps {
   onAdded?: () => void;
 }
 
 export default function TweetForm({ onAdded }: ITweetFormProps) {
+  const auth = useAuth();
   const [tweet, setTweet, tweetError] = useValidationable<string>("", validators.tweet);
   const [touched, setTouched] = useState<boolean>(false);
   
@@ -27,7 +29,7 @@ export default function TweetForm({ onAdded }: ITweetFormProps) {
     }
     
     try {
-      await tweetsApi.insertOne({ text: tweet, author_id: 'johnsmith' });
+      await tweetsApi.insertOne({ text: tweet, author_id: auth.user!.id });
       onAdded && onAdded();
       setTweet("");
       setTouched(false);
