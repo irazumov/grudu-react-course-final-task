@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useEffect } from 'react';
 import './MainContent.css';
 import TweetForm from '../tweets/TweetForm';
 import TweetsList from '../tweets/TweetsList';
