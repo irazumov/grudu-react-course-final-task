@@ -6,6 +6,6 @@ export interface ITweet {
   text: string;
 }
 
-const tweetsApi = new ApiClient<ITweet>("http://localhost:3001/tweets");
+const tweetsApi = new ApiClient<ITweet>("/tweets");
 
 export default tweetsApi;
