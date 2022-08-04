@@ -35,6 +35,11 @@
   cursor: pointer;
 }
 
+.form .error {
+  color: red;
+  font-weight: 500;
+}
+
 .subrow {
   display: flex;
   justify-content: center;

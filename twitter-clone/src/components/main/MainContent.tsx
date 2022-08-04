@@ -11,7 +11,7 @@ export default function MainContent() {
 
   const fetchTweets = () => {
     tweetsApi.find().then(tweets => {
-      setTweets(tweets.map(({ id, author_id, text }) => ({
+      setTweets(tweets.data.map(({ id, author_id, text }) => ({
         tweet: text,
         user: {
           name: author_id,
