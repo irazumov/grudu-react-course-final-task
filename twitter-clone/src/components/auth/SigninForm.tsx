@@ -1,41 +1,50 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import FormWrapper from './FormWrapper';
 import TInput from '../ui/TInput';
 import { useValidationable } from '../../hooks/validationable';
 import validators from './validators';
+import { useAuth } from '../../contexts/auth';
 
 interface ITouchedSigninFields {
-  email: boolean;
+  username: boolean;
   password: boolean;
 }
 
 export default function SigninForm() {
-  const [email, setEmail, emailError] = useValidationable<string>("", validators.email);
+  const auth = useAuth();
+  const [username, setUsername, usernameError] = useValidationable<string>("", validators.username);
   const [password, setPassword, passwordError] = useValidationable<string>("", validators.password);
 
+  useEffect(() => {
+    if (auth.error) {
+      auth.clearError();
+    }
+  }, [username, password]);
+
   const [touched, setTouched] = useState<ITouchedSigninFields>({
-    email: false,
+    username: false,
     password: false,
   });
 
   const setAllTouched = (value: boolean) => {
     setTouched({
-      email: value,
+      username: value,
       password: value,
     });
   }
 
   const validate = () => {
     setAllTouched(true);
-    return !emailError && !passwordError;
+    return !usernameError && !passwordError;
   }
 
 
   const onSubmit = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
-    if (validate()) {
-      console.log(email, password);
+    if (!validate() || auth.loading) {
+      return;
     }
+    auth.signin(username, password);
   };
 
   return (
@@ -49,17 +58,18 @@ export default function SigninForm() {
         linkTitle: 'Sign up',
         linkHref: '/signup',
       }}
+      error={auth.error}
     >
       <TInput
           className="bordered"
-          type="email"
+          type="text"
           placeholder="Username"
-          value={email}
-          setValue={setEmail}
-          autoComplete="email"
-          error={emailError}
-          touched={touched.email}
-          onBlur={() => setTouched({ ...touched, email: true })}
+          value={username}
+          setValue={setUsername}
+          autoComplete="nickname"
+          error={usernameError}
+          touched={touched.username}
+          onBlur={() => setTouched({ ...touched, username: true })}
           required
         />
         <TInput

@@ -1,18 +1,27 @@
+interface ApiResponse<T> {
+  status: number;
+  data: T;
+}
+
 export class ApiClient<T> {
   constructor(private readonly api: string) {}
 
-  public find(filters?: Partial<T>): Promise<T[]> {
+  public async find(filters?: Partial<T>): Promise<ApiResponse<T[]>> {
     const search = new URLSearchParams();
     Object.entries(filters || {}).forEach(([key, value]) => {
       search.append(key, `${value}`);
     });
     const query = search.toString();
     const url = `${this.api}${query && '?' + query}`;
-    return fetch(url).then(res => res.json()) as Promise<T[]>;
+    const response = await fetch(url);
+    const data = await response.json() as T[];
+    return { status: response.status, data };
   }
 
-  public findById(id: string): Promise<T> {
-    return fetch(`${this.api}/${id}`).then(res => res.json()) as Promise<T>;
+  public async findById(id: string): Promise<ApiResponse<T>> {
+    const response = await fetch(`${this.api}/${id}`);
+    const data = await response.json() as T;
+    return { status: response.status, data };
   }
 
   public insertOne(tweet: Omit<T, 'id'>): Promise<T> {

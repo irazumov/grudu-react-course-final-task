@@ -15,6 +15,7 @@ interface FormWrapperProps {
   label: string;
   submitBtnText: string;
   subrow: ISubrow;
+  error?: string | null;
   onSubmit?: (event: React.FormEvent<HTMLFormElement>) => void;
 }
 
@@ -25,6 +26,7 @@ export default function FormWrapper(props: FormWrapperProps) {
     onSubmit,
     subrow,
     submitBtnText,
+    error = null,
   } = props;
 
   return (
@@ -36,6 +38,7 @@ export default function FormWrapper(props: FormWrapperProps) {
       >
         <label>{submitBtnText}</label>
         <div className="main">{children}</div>
+        {error && <div className="error">{error}</div>}
         <div className="footer">
           <TButton className="bordered" type="submit">{submitBtnText}</TButton>
         </div>
