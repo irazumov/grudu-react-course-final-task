@@ -24,13 +24,15 @@ export class ApiClient<T> {
     return { status: response.status, data };
   }
 
-  public insertOne(tweet: Omit<T, 'id'>): Promise<T> {
-    return fetch(this.api, {
+  public async insertOne(entity: T): Promise<ApiResponse<T>> {
+    const response = await fetch(this.api, {
       method: "POST",
-      body: JSON.stringify(tweet),
+      body: JSON.stringify(entity),
       headers: {
         "Content-Type": "application/json"
       }
-    }).then(res => res.json()) as Promise<T>;
+    });
+    const data = await response.json() as T;
+    return { status: response.status, data };
   }
 }

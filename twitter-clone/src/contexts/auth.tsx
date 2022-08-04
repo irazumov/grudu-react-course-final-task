@@ -1,11 +1,14 @@
 import React from "react";
 import usersApi, { IUser } from "../api/users";
 
+type SigninMethod = (username: string, password: string) => void;
+type SignupMethod = (email: string, password: string, username: string, fullname: string) => void
 interface AuthContextType {
   user: IUser | null;
   error: string | null;
   loading: boolean;
-  signin: (username: string, password: string) => void;
+  signin: SigninMethod;
+  signup: SignupMethod;
   signout: () => void;
   clearError: () => void;
 }
@@ -39,15 +42,46 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
     }
   };
 
-  const signout = () => {
+  const signup: SignupMethod = async (email, password, username, fullname) => {
+    setLoading(true);
+    setError(null);
+    try {
+      const user = await usersApi.insertOne({
+        id: username,
+        name: fullname,
+        email,
+        password,
+      });
+      if (user.status === 201) {
+        return;
+      }
+      throw new Error("Unknown error");
+    } catch (error) {
+      const err = error as unknown as Error;
+      setError(err.message);
+      throw error;
+    } finally {
+      setLoading(false);
+    }
+  }
+
+  const signout: () => void = () => {
     setUser(null);
   };
 
-  const clearError = () => {
+  const clearError: () => void = () => {
     setError(null);
   }
 
-  const value: AuthContextType = { user, loading, error, signin, signout, clearError };
+  const value: AuthContextType = {
+    user,
+    loading,
+    error,
+    signin,
+    signup,
+    signout,
+    clearError,
+  };
 
   return <AuthContext.Provider value={value}>{children}</AuthContext.Provider>;
 }
@@ -55,4 +89,3 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
 export function useAuth() {
   return React.useContext(AuthContext);
 }
-
