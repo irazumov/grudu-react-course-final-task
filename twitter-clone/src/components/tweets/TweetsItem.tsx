@@ -1,3 +1,4 @@
+import sanitizeHtml from 'sanitize-html';
 import './TweetsItem.css';
 
 export interface ITweetsItemProps {
@@ -10,6 +11,9 @@ export interface ITweetsItemProps {
 
 export default function TweetsItem(props: ITweetsItemProps) {
   const { tweet, user } = props;
+
+  const sanitizedTweet = sanitizeHtml(tweet);
+
   return (
     <div className="tweets-item">
       <div className="tweets-item__row">
@@ -20,7 +24,7 @@ export default function TweetsItem(props: ITweetsItemProps) {
         </div>
         <div className="tweets-item__tweet">
           <div className="tweets-item__tweet-name">{user.name}</div>
-          <div className="tweets-item__tweet-content" dangerouslySetInnerHTML={{ __html: tweet }}></div>
+          <div className="tweets-item__tweet-content" dangerouslySetInnerHTML={{ __html: sanitizedTweet }}></div>
         </div>
       </div>
     </div>

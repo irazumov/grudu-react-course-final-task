@@ -25,9 +25,12 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
     setError(null);
     try {
       const user = await usersApi.findById(username);
-      if (user.status === 200 && user.data.password === password) {
-        setUser(user.data);
-        return;
+      if (user.status === 200) {
+        if (user.data.password === password) {
+          setUser(user.data);
+          return;
+        }
+        throw new Error("Invalid username or password");
       }
       if (user.status === 404) {
         throw new Error("Invalid username or password");
